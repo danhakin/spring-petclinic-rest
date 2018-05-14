@@ -1,23 +1,31 @@
 pipeline {
-    agent {
-        docker { 
-            image 'maven:3.5.0-jdk-8'
-        }
-    }
+    agent any
     stages {
+        def app
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/danhakin/spring-petclinic-rest.git', credentialsId: 'github-danhakin', branch: 'master'            
             }
         }
-        stage('Build') {
+        stage('Build image') {
             steps {
-                sh 'mvn clean install'
+                script {
+                    app = docker.build("spring-petclinic-rest:${env.BUILD_ID}")
+                }
             }
         }
-        stage('Unit Testing') {
+        stage('Test') {
             steps {
-                sh 'mvn test'
+                script {
+                    app.inside {
+                        sh "mvn clean install"
+                    }
+                }
+            }
+        }
+        stage('Deliver') {
+            steps{
+                sh 'echo delivering coming soon...'
             }
         }
     }
