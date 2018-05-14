@@ -1,7 +1,6 @@
 pipeline {
     agent any
     stages {
-        def app
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/danhakin/spring-petclinic-rest.git', credentialsId: 'github-danhakin', branch: 'master'            
