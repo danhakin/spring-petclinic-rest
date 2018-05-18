@@ -13,13 +13,18 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                 script {
                     app.inside {
                         sh 'pwd'
                         sh "mvn clean install"
                     }
+                }
+            }
+            post {
+               always {
+                    junit '**/target/surefire-reports/*.xml'
                 }
             }
         }
