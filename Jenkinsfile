@@ -17,6 +17,7 @@ pipeline {
             steps {
                 script {
                     app.inside {
+                        sh 'pwd'
                         sh "mvn clean install"
                     }
                 }
