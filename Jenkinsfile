@@ -24,6 +24,7 @@ pipeline {
             }
             post {
                always {
+                    archiveArtifacts artifacts: 'target/spring-petclinic-1.5.2.war', fingerprint: true
                     junit '**/target/surefire-reports/*.xml'
                 }
             }
