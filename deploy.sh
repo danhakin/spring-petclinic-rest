@@ -10,7 +10,7 @@ REPOSITORY_NAME=spring-petclinic-rest
 CLUSTER=ecs-devops
 FAMILY=`sed -n 's/.*"family": "\(.*\)",/\1/p' taskdef.json`
 NAME=`sed -n 's/.*"name": "\(.*\)",/\1/p' taskdef.json`
-SERVICE_NAME=${NAME}-service
+SERVICE_NAME=${NAME}-svc
 
 echo "-- Store the repositoryUri as a variable"
 #Store the repositoryUri as a variable
