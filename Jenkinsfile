@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        CI = 'true'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -29,9 +32,14 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Push image') {
             steps{
-                sh 'echo delivering coming soon...'
+                sh 'echo Uploading docker image to ECR'
+                script {
+                    docker.withRegistry("https://935517557789.dkr.ecr.eu-west-1.amazonaws.com/spring-petclinic-rest","ecr:eu-west-1:aws-ecr-repo"){
+                        app.push()
+                    }
+                }
             }
         }
     }
