@@ -2,7 +2,7 @@
     "family": "spring-petclinic-rest",
     "containerDefinitions": [
         {
-            "image": "%REPOSITORY_URI%:v_%BUILD_NUMBER%",
+            "image": "%REPOSITORY_URI%:%BUILD_NUMBER%",
             "name": "spring-petclinic-rest",
             "cpu": 256,
             "memory": 512,
