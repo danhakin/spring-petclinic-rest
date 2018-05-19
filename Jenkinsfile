@@ -3,26 +3,21 @@ pipeline {
     environment {
         CI = 'true'
     }
+    tools {
+        maven 'M3'
+        jdk 'jdk8'
+    }
     stages {
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/danhakin/spring-petclinic-rest.git', credentialsId: 'github-danhakin', branch: 'master'            
             }
         }
-        stage('Build image') {
-            steps {
-                script {
-                    app = docker.build("spring-petclinic-rest:${env.BUILD_ID}")
-                }
-            }
-        }
         stage('Unit Test') {
             steps {
                 script {
-                    app.inside {
-                        sh 'pwd'
-                        sh "mvn clean install"
-                    }
+                    sh 'pwd'
+                    sh "mvn clean install"
                 }
             }
             post {
@@ -36,6 +31,7 @@ pipeline {
             steps {
                 sh 'echo Uploading docker image to ECR'
                 script {
+                    app = docker.build("spring-petclinic-rest:${env.BUILD_ID}")
                     docker.withRegistry("https://935517557789.dkr.ecr.eu-west-1.amazonaws.com/spring-petclinic-rest","ecr:eu-west-1:aws-ecr-repo"){
                         app.push()
                     }
