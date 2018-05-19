@@ -1,24 +1,12 @@
-FROM maven:3.3.3-jdk-8 
+FROM openjdk:8u141-jdk
 
-# copy app
-COPY . /usr/src/app/
-
-# set app working directory
-WORKDIR /usr/src/app/
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 EXPOSE 9966
 
-CMD ["./mvnw spring-boot:run"]
+CMD [ "java", "-jar", "-Xmx256m", "-Xss32m", "/usr/src/app/spring-petclinic-1.5.2.war" ]
 
-
-FROM maven:3.3.3-jdk-8 
-
-# copy app
-COPY . /usr/src/app/
-
-# set app working directory
-WORKDIR /usr/src/app/
-
-CMD [ "./mvnw", "spring-boot:run" ]
-
-EXPOSE 9966
+# Install app dependencies
+COPY target/spring-petclinic-1.5.2.war /usr/src/app/
