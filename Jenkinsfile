@@ -38,12 +38,12 @@ pipeline {
                 }
             }
         }
-        stage('Build frontend') {
-            steps {
-                sh 'echo launch frontend job'
-                build job: 'petclinic-front'
-            }
-        }
+        // stage('Build frontend') {
+        //     steps {
+        //         sh 'echo launch frontend job'
+        //         build job: 'petclinic-front'
+        //     }
+        // }
         // stage('Deliver') {
         //     steps {
         //         sh 'echo Deploying to ECS cluster'
