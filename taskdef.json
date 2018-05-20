@@ -1,9 +1,9 @@
 {
-    "family": "spring-petclinic-rest",
+    "family": "petclinic-rest",
     "containerDefinitions": [
         {
             "image": "%REPOSITORY_URI%:%BUILD_NUMBER%",
-            "name": "spring-petclinic-rest",
+            "name": "petclinic-rest",
             "cpu": 256,
             "memory": 512,
             "essential": true,
